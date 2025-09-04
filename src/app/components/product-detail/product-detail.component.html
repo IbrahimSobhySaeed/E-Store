@@ -1,0 +1,124 @@
+<div class="product-detail-page">
+    <div class="container">
+        <!-- Loading State -->
+        <app-loading *ngIf="loading()"></app-loading>
+
+        <!-- Product Detail -->
+        <div class="product-detail" *ngIf="!loading() && product()">
+            <!-- Breadcrumb -->
+            <nav class="breadcrumb">
+                <a routerLink="/">Home</a>
+                <span class="separator">/</span>
+                <a routerLink="/products">Products</a>
+                <span class="separator">/</span>
+                <span>{{ product()!.title }}</span>
+            </nav>
+
+            <!-- Product Content -->
+            <div class="product-content">
+                <!-- Product Image -->
+                <div class="product-image-section">
+                    <div class="main-image">
+                        <img [src]="product()!.image" [alt]="product()!.title">
+                    </div>
+                </div>
+
+                <!-- Product Info -->
+                <div class="product-info-section">
+                    <div class="category-badge">{{ product()!.category | uppercase }}</div>
+
+                    <h1 class="product-title">{{ product()!.title }}</h1>
+
+                    <div class="product-rating">
+                        <div class="stars">
+                            <span class="material-icons" *ngFor="let star of getStars()">
+                                {{ star }}
+                            </span>
+                        </div>
+                        <span class="rating-text">
+                            {{ product()!.rating.rate }} out of 5 ({{ product()!.rating.count }} reviews)
+                        </span>
+                    </div>
+
+                    <div class="price-section">
+                        <span class="price">{{ product()!.price | currency }}</span>
+                        <span class="price-info">Free shipping on orders over $50</span>
+                    </div>
+
+                    <div class="description-section">
+                        <h3>Description</h3>
+                        <p>{{ product()!.description }}</p>
+                    </div>
+
+                    <div class="purchase-section">
+                        <div class="quantity-selector">
+                            <label>Quantity:</label>
+                            <div class="quantity-controls">
+                                <button class="qty-btn" (click)="decreaseQuantity()" [disabled]="quantity() <= 1">
+                                    <span class="material-icons">remove</span>
+                                </button>
+                                <input type="number" [value]="quantity()" readonly class="qty-input">
+                                <button class="qty-btn" (click)="increaseQuantity()">
+                                    <span class="material-icons">add</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary add-to-cart" (click)="addToCart()">
+                            <span class="material-icons">add_shopping_cart</span>
+                            Add to Cart
+                        </button>
+
+                        <button class="btn btn-secondary buy-now">
+                            <span class="material-icons">flash_on</span>
+                            Buy Now
+                        </button>
+                    </div>
+
+                    <div class="product-features">
+                        <div class="feature">
+                            <span class="material-icons">local_shipping</span>
+                            <span>Free Delivery</span>
+                        </div>
+                        <div class="feature">
+                            <span class="material-icons">assignment_return</span>
+                            <span>30 Day Return</span>
+                        </div>
+                        <div class="feature">
+                            <span class="material-icons">security</span>
+                            <span>Secure Payment</span>
+                        </div>
+                        <div class="feature">
+                            <span class="material-icons">verified</span>
+                            <span>Authentic Product</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Related Products -->
+            <section class="related-products" *ngIf="relatedProducts().length > 0">
+                <h2>Related Products</h2>
+                <div class="related-grid">
+                    <article class="related-card" *ngFor="let product of relatedProducts()">
+                        <a [routerLink]="['/products', product.id]">
+                            <div class="related-image">
+                                <img [src]="product.image" [alt]="product.title">
+                            </div>
+                            <h4>{{ product.title }}</h4>
+                            <p class="related-price">{{ product.price | currency }}</p>
+                        </a>
+                    </article>
+                </div>
+            </section>
+        </div>
+
+        <!-- Error State -->
+        <div class="error-state" *ngIf="!loading() && !product()">
+            <span class="material-icons">error_outline</span>
+            <h2>Product Not Found</h2>
+            <p>The product you're looking for doesn't exist.</p>
+            <a routerLink="/products" class="btn btn-primary">Back to Products</a>
+        </div>
+    </div>
+</div>

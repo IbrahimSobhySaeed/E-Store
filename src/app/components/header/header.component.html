@@ -1,0 +1,80 @@
+<header class="header">
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <!-- Logo -->
+                <a routerLink="/" class="logo">
+                    <span class="material-icons">shopping_bag</span>
+                    <span class="logo-text">E-Store</span>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <div class="nav-links desktop-nav">
+                    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                        Home
+                    </a>
+                    <a routerLink="/products" routerLinkActive="active">
+                        Products
+                    </a>
+                    <a routerLink="/categories" routerLinkActive="active">
+                        Categories
+                    </a>
+                </div>
+
+                <!-- Actions -->
+                <div class="nav-actions">
+                    <a routerLink="/cart" class="cart-icon" [attr.data-count]="cartItemsCount()">
+                        <span class="material-icons">shopping_cart</span>
+                    </a>
+
+                    <a routerLink="/profile" class="user-icon" *ngIf="currentUser(); else loginLink">
+                        <span class="material-icons">account_circle</span>
+                    </a>
+
+                    <ng-template #loginLink>
+                        <a routerLink="/login" class="btn btn-primary">
+                            Login
+                        </a>
+                    </ng-template>
+
+                    <!-- Mobile Menu Toggle -->
+                    <button class="mobile-menu-toggle" (click)="toggleMobileMenu()">
+                        <span class="material-icons">{{ mobileMenuOpen ? 'close' : 'menu' }}</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Navigation -->
+            <div class="mobile-nav" [class.open]="mobileMenuOpen">
+                <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+                    (click)="closeMobileMenu()">
+                    <span class="material-icons">home</span>
+                    Home
+                </a>
+                <a routerLink="/products" routerLinkActive="active" (click)="closeMobileMenu()">
+                    <span class="material-icons">inventory_2</span>
+                    Products
+                </a>
+                <a routerLink="/categories" routerLinkActive="active" (click)="closeMobileMenu()">
+                    <span class="material-icons">category</span>
+                    Categories
+                </a>
+                <a routerLink="/cart" routerLinkActive="active" (click)="closeMobileMenu()">
+                    <span class="material-icons">shopping_cart</span>
+                    Cart ({{ cartItemsCount() }})
+                </a>
+                <a routerLink="/profile" routerLinkActive="active" (click)="closeMobileMenu()"
+                    *ngIf="currentUser(); else mobileLoginLink">
+                    <span class="material-icons">account_circle</span>
+                    Profile
+                </a>
+                <ng-template #mobileLoginLink>
+                    <a routerLink="/login" routerLinkActive="active" (click)="closeMobileMenu()">
+                        <span class="material-icons">login</span>
+                        Login
+                    </a>
+                </ng-template>
+            </div>
+        </div>
+    </nav>
+</header>

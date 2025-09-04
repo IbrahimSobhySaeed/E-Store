@@ -1,0 +1,62 @@
+<div class="category-products-page">
+    <div class="container">
+        <!-- Breadcrumb -->
+        <nav class="breadcrumb">
+            <a routerLink="/">Home</a>
+            <span class="separator">/</span>
+            <a routerLink="/categories">Categories</a>
+            <span class="separator">/</span>
+            <span>{{ categoryName() | titlecase }}</span>
+        </nav>
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="header-content">
+                <span class="material-icons category-icon">{{ getCategoryIcon(categoryName()) }}</span>
+                <div>
+                    <h1>{{ categoryName() | titlecase }}</h1>
+                    <p class="product-count" *ngIf="!loading()">
+                        {{ products().length }} products available
+                    </p>
+                </div>
+            </div>
+
+            <!-- Sort Filter -->
+            <div class="sort-filter" *ngIf="!loading() && products().length > 0">
+                <label for="sort">Sort by:</label>
+                <select id="sort" [value]="sortOrder()" (change)="onSortChange($any($event.target).value)"
+                    class="filter-select">
+                    <option value="none">Default</option>
+                    <option value="asc">Price: Low to High</option>
+                    <option value="desc">Price: High to Low</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Loading State -->
+        <app-loading *ngIf="loading()"></app-loading>
+
+        <!-- Products Grid -->
+        <div class="products-grid" *ngIf="!loading() && sortedProducts().length > 0">
+            <app-product-card *ngFor="let product of sortedProducts()" [product]="product"
+                class="fade-in"></app-product-card>
+        </div>
+
+        <!-- No Products -->
+        <div class="no-products" *ngIf="!loading() && products().length === 0">
+            <span class="material-icons">inventory_2</span>
+            <h3>No products found in this category</h3>
+            <p>Try browsing other categories or view all products</p>
+            <div class="actions">
+                <a routerLink="/categories" class="btn btn-secondary">
+                    <span class="material-icons">category</span>
+                    Browse Categories
+                </a>
+                <a routerLink="/products" class="btn btn-primary">
+                    <span class="material-icons">shopping_bag</span>
+                    View All Products
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

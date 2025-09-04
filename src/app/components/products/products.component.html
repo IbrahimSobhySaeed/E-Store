@@ -1,0 +1,65 @@
+<div class="products-page">
+    <div class="container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1>All Products</h1>
+            <p class="subtitle">Discover our wide range of quality products</p>
+        </div>
+
+        <!-- Filters and Search -->
+        <div class="filters-section">
+            <div class="filters-wrapper">
+                <!-- Search -->
+                <div class="search-box">
+                    <span class="material-icons">search</span>
+                    <input type="text" placeholder="Search products..." [value]="searchTerm()"
+                        (input)="onSearchChange($any($event.target).value)" class="search-input">
+                </div>
+
+                <!-- Category Filter -->
+                <div class="filter-group">
+                    <label for="category">Category:</label>
+                    <select id="category" [value]="selectedCategory()"
+                        (change)="onCategoryChange($any($event.target).value)" class="filter-select">
+                        <option value="all">All Categories</option>
+                        <option *ngFor="let category of categories()" [value]="category">
+                            {{ category | titlecase }}
+                        </option>
+                    </select>
+                </div>
+
+                <!-- Sort Filter -->
+                <div class="filter-group">
+                    <label for="sort">Sort by:</label>
+                    <select id="sort" [value]="sortOrder()" (change)="onSortChange($any($event.target).value)"
+                        class="filter-select">
+                        <option value="none">Default</option>
+                        <option value="asc">Price: Low to High</option>
+                        <option value="desc">Price: High to Low</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Results Count -->
+            <div class="results-info" *ngIf="!loading()">
+                <p>Showing {{ filteredProducts().length }} products</p>
+            </div>
+        </div>
+
+        <!-- Loading State -->
+        <app-loading *ngIf="loading()"></app-loading>
+
+        <!-- Products Grid -->
+        <div class="products-grid" *ngIf="!loading()">
+            <app-product-card *ngFor="let product of filteredProducts()" [product]="product"
+                class="fade-in"></app-product-card>
+        </div>
+
+        <!-- No Results -->
+        <div class="no-results" *ngIf="!loading() && filteredProducts().length === 0">
+            <span class="material-icons">search_off</span>
+            <h3>No products found</h3>
+            <p>Try adjusting your filters or search term</p>
+        </div>
+    </div>
+</div>

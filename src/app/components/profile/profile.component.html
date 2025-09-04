@@ -1,0 +1,142 @@
+<div class="profile-page" *ngIf="currentUser()">
+    <div class="container">
+        <!-- Profile Header -->
+        <div class="profile-header">
+            <div class="profile-avatar">
+                <span>{{ getInitials() }}</span>
+            </div>
+            <div class="profile-info">
+                <h1>{{ currentUser()!.name.firstname }} {{ currentUser()!.name.lastname }}</h1>
+                <p class="username">{{ currentUser()!.username }}</p>
+            </div>
+            <button class="btn btn-secondary logout-btn" (click)="logout()">
+                <span class="material-icons">logout</span>
+                Logout
+            </button>
+        </div>
+
+        <!-- Profile Content -->
+        <div class="profile-content">
+            <!-- Personal Information -->
+            <section class="profile-section">
+                <h2>
+                    <span class="material-icons">person</span>
+                    Personal Information
+                </h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <label>Full Name</label>
+                        <p>{{ currentUser()!.name.firstname }} {{ currentUser()!.name.lastname }}</p>
+                    </div>
+                    <div class="info-item">
+                        <label>Email</label>
+                        <p>{{ currentUser()!.email }}</p>
+                    </div>
+                    <div class="info-item">
+                        <label>Username</label>
+                        <p>{{ currentUser()!.username }}</p>
+                    </div>
+                    <div class="info-item">
+                        <label>Phone</label>
+                        <p>{{ currentUser()!.phone }}</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Address Information -->
+            <section class="profile-section">
+                <h2>
+                    <span class="material-icons">location_on</span>
+                    Address Information
+                </h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <label>Street</label>
+                        <p>{{ currentUser()!.address.street }} {{ currentUser()!.address.number }}</p>
+                    </div>
+                    <div class="info-item">
+                        <label>City</label>
+                        <p>{{ currentUser()!.address.city }}</p>
+                    </div>
+                    <div class="info-item">
+                        <label>Zip Code</label>
+                        <p>{{ currentUser()!.address.zipcode }}</p>
+                    </div>
+                    <div class="info-item">
+                        <label>Coordinates</label>
+                        <p>{{ currentUser()!.address.geolocation.lat }}, {{ currentUser()!.address.geolocation.long }}
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Actions -->
+            <section class="profile-section">
+                <h2>
+                    <span class="material-icons">flash_on</span>
+                    Quick Actions
+                </h2>
+                <div class="actions-grid">
+                    <a routerLink="/cart" class="action-card">
+                        <span class="material-icons">shopping_cart</span>
+                        <div>
+                            <h3>Shopping Cart</h3>
+                            <p>{{ cartItemsCount() }} items in cart</p>
+                        </div>
+                    </a>
+                    <a routerLink="/products" class="action-card">
+                        <span class="material-icons">shopping_bag</span>
+                        <div>
+                            <h3>Browse Products</h3>
+                            <p>Explore our catalog</p>
+                        </div>
+                    </a>
+                    <a href="#" class="action-card">
+                        <span class="material-icons">history</span>
+                        <div>
+                            <h3>Order History</h3>
+                            <p>View past orders</p>
+                        </div>
+                    </a>
+                    <a href="#" class="action-card">
+                        <span class="material-icons">favorite</span>
+                        <div>
+                            <h3>Wishlist</h3>
+                            <p>Saved items</p>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Account Settings -->
+            <section class="profile-section">
+                <h2>
+                    <span class="material-icons">settings</span>
+                    Account Settings
+                </h2>
+                <div class="settings-list">
+                    <button class="setting-item">
+                        <span class="material-icons">edit</span>
+                        <span>Edit Profile</span>
+                        <span class="material-icons arrow">chevron_right</span>
+                    </button>
+                    <button class="setting-item">
+                        <span class="material-icons">lock</span>
+                        <span>Change Password</span>
+                        <span class="material-icons arrow">chevron_right</span>
+                    </button>
+                    <button class="setting-item">
+                        <span class="material-icons">notifications</span>
+                        <span>Notification Settings</span>
+                        <span class="material-icons arrow">chevron_right</span>
+                    </button>
+                    <button class="setting-item">
+                        <span class="material-icons">payment</span>
+                        <span>Payment Methods</span>
+                        <span class="material-icons arrow">chevron_right</span>
+                    </button>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

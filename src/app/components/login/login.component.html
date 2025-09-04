@@ -1,0 +1,104 @@
+<div class="login-page">
+    <div class="container">
+        <div class="login-wrapper">
+            <div class="login-card">
+                <div class="login-header">
+                    <span class="material-icons logo-icon">shopping_bag</span>
+                    <h1>Welcome Back</h1>
+                    <p>Login to your account to continue shopping</p>
+                </div>
+
+                <form class="login-form" (ngSubmit)="onSubmit()" #loginForm="ngForm">
+                    <!-- Username Field -->
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <div class="input-wrapper">
+                            <span class="material-icons input-icon">person</span>
+                            <input type="text" id="username" name="username" [(ngModel)]="credentials.username"
+                                placeholder="Enter your username" required [disabled]="loading()" class="form-input">
+                        </div>
+                    </div>
+
+                    <!-- Password Field -->
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <div class="input-wrapper">
+                            <span class="material-icons input-icon">lock</span>
+                            <input [type]="showPassword() ? 'text' : 'password'" id="password" name="password"
+                                [(ngModel)]="credentials.password" placeholder="Enter your password" required
+                                [disabled]="loading()" class="form-input">
+                            <button type="button" class="toggle-password" (click)="togglePasswordVisibility()"
+                                [disabled]="loading()">
+                                <span class="material-icons">
+                                    {{ showPassword() ? 'visibility_off' : 'visibility' }}
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Error Message -->
+                    <div class="error-message" *ngIf="error()">
+                        <span class="material-icons">error_outline</span>
+                        {{ error() }}
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-primary submit-btn" [disabled]="loading() || !loginForm.valid">
+                        <span class="material-icons" *ngIf="!loading()">login</span>
+                        <div class="spinner" *ngIf="loading()"></div>
+                        {{ loading() ? 'Logging in...' : 'Login' }}
+                    </button>
+                </form>
+
+                <!-- Demo Credentials -->
+                <div class="demo-section">
+                    <p class="demo-title">Demo Credentials:</p>
+                    <div class="demo-buttons">
+                        <button type="button" class="demo-btn" (click)="fillDemoCredentials(0)" [disabled]="loading()">
+                            <span class="material-icons">badge</span>
+                            User 1
+                        </button>
+                        <button type="button" class="demo-btn" (click)="fillDemoCredentials(1)" [disabled]="loading()">
+                            <span class="material-icons">badge</span>
+                            User 2
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Additional Links -->
+                <!-- <div class="login-footer">
+                    <p>Don't have an account? <a href="#">Sign up</a></p>
+                    <a href="#">Forgot password?</a>
+                </div> -->
+            </div>
+
+            <!-- Side Panel -->
+            <div class="side-panel">
+                <h2>Shop with Confidence</h2>
+                <div class="features">
+                    <div class="feature">
+                        <span class="material-icons">security</span>
+                        <div>
+                            <h3>Secure Shopping</h3>
+                            <p>Your data is protected with industry-standard encryption</p>
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <span class="material-icons">local_shipping</span>
+                        <div>
+                            <h3>Fast Delivery</h3>
+                            <p>Free shipping on orders over $50</p>
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <span class="material-icons">assignment_return</span>
+                        <div>
+                            <h3>Easy Returns</h3>
+                            <p>30-day return policy for your peace of mind</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

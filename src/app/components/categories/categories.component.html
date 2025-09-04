@@ -1,0 +1,54 @@
+<div class="categories-page">
+    <div class="container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1>Shop by Category</h1>
+            <p class="subtitle">Browse our product categories</p>
+        </div>
+
+        <!-- Loading State -->
+        <app-loading *ngIf="loading()"></app-loading>
+
+        <!-- Categories Grid -->
+        <div class="categories-grid" *ngIf="!loading()">
+            <a [routerLink]="['/category', category.name]" class="category-card fade-in"
+                *ngFor="let category of categories()" [style.--category-color]="category.color">
+                <div class="category-icon">
+                    <span class="material-icons">{{ category.icon }}</span>
+                </div>
+
+                <div class="category-content">
+                    <h2 class="category-name">{{ category.name | titlecase }}</h2>
+
+                    <div class="category-stats">
+                        <div class="stat">
+                            <span class="stat-value">{{ category.productCount }}</span>
+                            <span class="stat-label">Products</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value">{{ category.averagePrice | currency:'USD':'symbol':'1.0-0'
+                                }}</span>
+                            <span class="stat-label">Avg. Price</span>
+                        </div>
+                    </div>
+
+                    <div class="category-action">
+                        <span>Browse Collection</span>
+                        <span class="material-icons">arrow_forward</span>
+                    </div>
+                </div>
+
+                <div class="category-decoration"></div>
+            </a>
+        </div>
+
+        <!-- All Products Link -->
+        <div class="all-products-section">
+            <h3>Can't find what you're looking for?</h3>
+            <a routerLink="/products" class="btn btn-primary">
+                <span class="material-icons">inventory_2</span>
+                View All Products
+            </a>
+        </div>
+    </div>
+</div>
